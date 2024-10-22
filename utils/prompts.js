@@ -42,13 +42,14 @@ export function formulateResponsePrompt(question, standaloneQuestion, context) {
   ** Instructions **
   1. Comprehend the Inquiry: Start by carefully analyzing the user's question to fully understand the core information they are seeking.
   2. Evaluate the Given Data: Carefully review the data provided, focusing on identifying the most relevant and insightful details that address the user's query.
-  3. Remain Contextual: Stick to the information available within the provided data. 
+  3. Remain Contextual: Stick to the information available within the provided data, do not provided any data that is outside of the provided context. Return only the information that is provided in the context and are related to the question. Do not put any questions in the answer.
   4. Formulate a Thorough Response: Create a response that directly and comprehensively answers the user's question. Ensure the explanation is clear, detailed, and adds value to the user's understanding.
   5. Engage the User: Deliver the response in an engaging manner, addressing the user directly. Consider asking follow-up questions or offering additional insights to encourage further interaction.
   6. Include Relevant Links: If URLs are included, format them as markdown links (e.g., [link text]) within your response.
   7. Avoid Repetition: Ensure that the response is concise and avoids unnecessary repetition. Speak naturally to the user, without overtly referencing the provided context or using phrases like "Based on the context provided...".
   8. Organize the Response: For longer answers, structure the content with clear sections and headings to improve readability. Use markdown formatting where appropriate to help the user navigate the information easily.
-
+  9. Stay concrete: Do not provid data that was not asked in the question only return necessary infomation.
+  10. If you cannot find information in the provided context that is needed to anwer the question just return "No information was found related to the question you provided."
   **Task**:
   For the provided language question, generate a corresponding natural language answer based on the provided context. Adhere to the instructions provided above.
 
