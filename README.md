@@ -28,3 +28,16 @@ npx sequelize-cli db:migrate
 ```sh
 npm run start
 ```
+
+## Vectorization controller
+
+In case you want to use the vectorization controller, you have to set up the following services: HuggingFace, Zilliz and Cohere which is optional.
+
+HuggingFace - used for vectorization embedding model
+https://huggingface.co/
+
+Zilliz - used for hosting the vector database
+https://cloud.zilliz.com/
+
+Cohere ReRanker - used for improving retrieval results accuracy
+https://dashboard.cohere.com/
