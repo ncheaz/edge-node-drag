@@ -49,9 +49,6 @@ export default {
         standaloneQuestion,
         result
       );
-      if(answer === "No information was found related to the question you provided") {
-
-      }
 
       return res.status(200).send({
         answer,
