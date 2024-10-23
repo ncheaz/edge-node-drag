@@ -1,11 +1,8 @@
-import cacheService from "../services/cacheService.js";
 import LLMService from "../services/llmService.js";
 import DKGService from "../services/nodeService.js";
-import VectorSearchService from "../services/vectorSearchService.js";
 import { processQuestion } from "../services/nlpService.js";
 import logger from "../utils/logger.js";
 import { getKnowledgeAssetsGeneric } from "../utils/utils.js";
-import RerankerService from "../services/rerankerService.js";
 import authService from "../services/authService.js";
 import { getSparqlQuery } from "../utils/utils.js";
 export default {
@@ -58,7 +55,7 @@ export default {
         knowledgeAssets,
       });
     } catch (e) {
-      logger.error("Error in ask: " + e.message);
+      logger.error("Error in ask: " + e.stack);
     }
   },
 };
