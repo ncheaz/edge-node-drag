@@ -73,7 +73,7 @@ export function getToken(bearerToken) {
   return bearerToken.split(" ")[1];
 }
 
-export function getSparqlQuery(contentType) {
+export function getSparqlQuery(headline) {
   let query = `
   PREFIX schema: <http://schema.org/>
 
@@ -84,11 +84,16 @@ WHERE {
          schema:name ?name;
          schema:fileFormat ?fileFormat;
          schema:headline ?headline;
-         schema:abstract ?abstract;
-         schema:contentType "${contentType}".
+         schema:abstract ?abstract.
+    
+    # Multiple FILTER conditions for different books
+    FILTER (
+      REGEX(?headline, "${headline}", "i")
+    )
   }
   ?ual schema:assertion ?g.
 }
-GROUP BY ?ual ?name ?fileFormat ?headline ?abstract`;
+GROUP BY ?ual ?name ?fileFormat ?headline ?abstract
+`;
   return query;
 }

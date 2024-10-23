@@ -43,17 +43,18 @@ class DKGService {
    *
    * @param {string|string[]} query - The query to be executed. If a single string is provided, it will be executed as a single query.
    * If an array of strings is provided, each query will be executed sequentially.
+   * @param userData
    * @returns {Promise<any[][]>} - A promise that resolves to an array of arrays. Each inner array represents the results of a single query.
    * If a query does not return any data, the corresponding inner array will be empty.
    * If an error occurs during the query, the corresponding inner array will be empty.
    */
-  async query(query, paranetUAL = null) {
+  async query(query, userData) {
     let queries = Array.isArray(query) ? query : [query];
     let results = [];
     for (const q of queries) {
       try {
-        if (paranetUAL) {
-          this.queryConfig.paranetUAL = paranetUAL;
+        if (userData.edgeNodePublishMode && userData.edgeNodePublishMode !== "public") {
+          this.queryConfig.paranetUAL = userData.paranetUAL;
         }
         const result = await this.client.graph.query(
           q,

@@ -26,8 +26,12 @@ export async function authenticateToken(cookie) {
       (cfg) => cfg.option === DRAG_USER_CONFIG_OPTION
     ) || null;
 
+    const edgeNodePublishMode = response.data.user.config.find(
+      (cfg) => cfg.option === "edge_node_publish_mode"
+    )?.value || null;
+
     const edgeNodeParanetUAL = response.data.user.config.find(
-      (cfg) => cfg.option === "edge_node_paranet_ual"
+        (cfg) => cfg.option === "edge_node_paranet_ual"
     )?.value || null;
 
     const environment = response.data.user.config.find(
@@ -73,6 +77,7 @@ export async function authenticateToken(cookie) {
       userData: {
         ...baseUserData,
         id: userConfig.id,
+        edgeNodePublishMode: edgeNodePublishMode,
         paranetUAL: edgeNodeParanetUAL,
         environment: environment,
         endpoint: runTimeNodeEndpoint,
