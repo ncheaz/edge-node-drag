@@ -26,7 +26,7 @@ export default {
         chatHistory
       );
 
-      // add or edit fields if you want
+      // Add or edit vector DB fields if you want (langchain_text, UAL)
       let vectorResponse = await vectorService.search(standaloneQuestion, [
         "langchain_text",
         "ual",
