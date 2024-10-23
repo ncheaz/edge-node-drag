@@ -5,7 +5,7 @@ export function getKnowledgeAssets(chunks, environment) {
     return {
       assetName: chunk.name,
       assetUAL: chunk.ual,
-      issuer: "OriginTrail",
+      issuerName: "OriginTrail",
       issuerUAL:
         environment === "mainnet"
           ? "did:dkg:otp/0x5cac41237127f94c2d21dae0b14bfefa99880630/307803"
@@ -27,7 +27,7 @@ export function getKnowledgeAssetsGeneric(chunks, environment) {
     return {
       assetName: chunk.name,
       assetUAL: chunk.ual,
-      issuer: "OriginTrail",
+      issuerName: "OriginTrail",
       issuerUAL:
         environment === "mainnet"
           ? "did:dkg:otp/0x5cac41237127f94c2d21dae0b14bfefa99880630/307803"
