@@ -24,55 +24,60 @@ export async function authenticateToken(cookie) {
 
     const userConfig = response.data.user.config.find(
       (cfg) => cfg.option === DRAG_USER_CONFIG_OPTION
-    );
+    ) || null;
+
+    const edgeNodePublishMode = response.data.user.config.find(
+      (cfg) => cfg.option === "edge_node_publish_mode"
+    )?.value || null;
 
     const edgeNodeParanetUAL = response.data.user.config.find(
-      (cfg) => cfg.option === "edge_node_paranet_ual"
-    )?.value;
+        (cfg) => cfg.option === "edge_node_paranet_ual"
+    )?.value || null;
 
     const environment = response.data.user.config.find(
       (cfg) => cfg.option === "edge_node_environment"
-    )?.value;
+    )?.value || null;
 
     const runTimeNodeEndpoint = response.data.user.config.find(
       (cfg) => cfg.option === "run_time_node_endpoint"
-    )?.value;
+    )?.value || null;
 
     const blockchain = response.data.user.config.find(
       (cfg) => cfg.option === "blockchain"
-    )?.value;
+    )?.value || null;
 
     const vectorDBUri = response.data.user.config.find(
       (cfg) => cfg.option === "milvus_address"
-    )?.value;
+    )?.value || null;
 
     const vectorDBCredentials = response.data.user.config
       .find((cfg) => cfg.option === "milvus_token")
-      ?.value?.split(":");
+      ?.value?.split(":") || null;
 
-    const vectorDBUsername = vectorDBCredentials[0];
-    const vectorDBPassword = vectorDBCredentials[1];
+    const vectorDBUsername = (vectorDBCredentials !== null && vectorDBCredentials.length > 0) ? vectorDBCredentials[0] : null;
+    const vectorDBPassword = (vectorDBCredentials !== null && vectorDBCredentials.length > 0) ? vectorDBCredentials[1] : null;
 
     const vectorCollection = response.data.user.config
       .find((cfg) => cfg.option === "vector_collection")
-      ?.value?.split(",");
+      ?.value?.split(",") || null;
 
     const embeddingModelAPIKey = response.data.user.config.find(
       (cfg) => cfg.option === "embedding_model_api_key"
-    )?.value;
+    )?.value || null;
 
     const embeddingModel = response.data.user.config.find(
       (cfg) => cfg.option === "embedding_model"
-    )?.value;
+    )?.value || null;
 
     const cohereKey = response.data.user.config.find(
       (cfg) => cfg.option === "cohere_key"
-    )?.value;
+    )?.value || null;
 
     return {
       userData: {
         ...baseUserData,
         id: userConfig.id,
+        edgeNodePublishMode: edgeNodePublishMode,
         paranetUAL: edgeNodeParanetUAL,
         environment: environment,
         endpoint: runTimeNodeEndpoint,

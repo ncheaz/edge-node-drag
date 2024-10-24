@@ -22,13 +22,13 @@ export default {
         chatHistory
       );
 
-      const contentType = await llmService.getContentType(standaloneQuestion);
+      const headline = await llmService.getDigitalDocumentTitle(standaloneQuestion);
 
-      const sparqlQuery = getSparqlQuery(contentType);
+      const sparqlQuery = getSparqlQuery(headline);
 
       const queryResults = await dkgService.query(
         sparqlQuery,
-        userData.paranetUAL
+        userData
       );
 
       let result = queryResults[0];

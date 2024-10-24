@@ -81,3 +81,24 @@ export function formulateContentTypePrompt(standaloneQuestion) {
     Return only the content type as a single word string.
   `;
 }
+
+export function formulateDigitalDocumentTitlePrompt(standaloneQuestion) {
+  return `
+    Based on the following standalone question, determine what is the title of entity in focus
+    
+    Example input:
+    Where are the characters from in the book The Winds of Winter?
+
+    Example output:
+    The|Winds|of|Winter
+
+    Example input:
+    Who are the main characters in the movie Lord of the rings?
+
+    Example output:
+    Lord|of|the|rings
+    Question: "${standaloneQuestion}"
+
+    Return only the title as where white space is replaced by | as provided in examples.
+  `;
+}
