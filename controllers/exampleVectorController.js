@@ -11,7 +11,7 @@ export default {
     try {
       const { question, chatHistory } = req.body;
 
-      const userData = await authService.authenticateAndCache(req.sessionSid);
+      const userData = await authService.authenticateAndCache(req);
 
       const llmService = new LLMService(userData);
 
