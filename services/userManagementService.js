@@ -17,7 +17,7 @@ const baseUserData = {
 
 export async function authenticateToken(cookie) {
   try {
-    const response = await axios.get(`${AUTH_ENDPOINT}/auth/check`, {
+    const response = await axios.get(`${AUTH_ENDPOINT}/check`, {
       headers: { Cookie: `${COOKIE_NAME}=${cookie}` },
       withCredentials: "true",
     });
