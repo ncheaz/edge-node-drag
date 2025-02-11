@@ -76,7 +76,7 @@ export function getToken(bearerToken) {
 export function getSparqlQuery(headline) {
   let query = `
   PREFIX schema: <http://schema.org/>
-SELECT ?ual ?doc ?name ?fileFormat ?headline ?abstract
+SELECT ?ual ?name ?fileFormat ?headline ?abstract
 WHERE {
   GRAPH ?ual {
     ?doc a schema:DigitalDocument;
