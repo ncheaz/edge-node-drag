@@ -76,8 +76,7 @@ export function getToken(bearerToken) {
 export function getSparqlQuery(headline) {
   let query = `
   PREFIX schema: <http://schema.org/>
-
-SELECT ?ual ?name ?fileFormat ?headline ?abstract
+SELECT ?g ?doc ?name ?fileFormat ?headline ?abstract
 WHERE {
   GRAPH ?g {
     ?doc a schema:DigitalDocument;
@@ -86,14 +85,11 @@ WHERE {
          schema:headline ?headline;
          schema:abstract ?abstract.
     
-    # Multiple FILTER conditions for different books
+       
     FILTER (
-      REGEX(?headline, "${headline}", "i")
+     REGEX(?headline, "${headline}", "i")
     )
   }
-  ?ual schema:assertion ?g.
-}
-GROUP BY ?ual ?name ?fileFormat ?headline ?abstract
-`;
+}`;
   return query;
 }
