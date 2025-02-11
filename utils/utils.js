@@ -90,6 +90,7 @@ WHERE {
      REGEX(?headline, "${headline}", "i")
     )
   }
-}`;
+}
+GROUP BY ?g ?name ?fileFormat ?headline ?abstract`;
   return query;
 }
