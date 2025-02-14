@@ -10,7 +10,7 @@ export default {
     try {
       const { question, chatHistory } = req.body;
 
-      const userData = await authService.authenticateAndCache(req.sessionSid);
+      const userData = await authService.authenticateAndCache(req);
 
       const llmService = new LLMService(userData);
 
@@ -22,14 +22,13 @@ export default {
         chatHistory
       );
 
-      const headline = await llmService.getDigitalDocumentTitle(standaloneQuestion);
+      const headline = await llmService.getDigitalDocumentTitle(
+        standaloneQuestion
+      );
 
       const sparqlQuery = getSparqlQuery(headline);
 
-      const queryResults = await dkgService.query(
-        sparqlQuery,
-        userData
-      );
+      const queryResults = await dkgService.query(sparqlQuery, userData);
 
       let result = queryResults[0];
       if (result.length === 0) {

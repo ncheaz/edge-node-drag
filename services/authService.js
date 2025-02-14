@@ -2,9 +2,9 @@ import CacheService from "./cacheService.js";
 import { authenticateToken } from "./userManagementService.js";
 
 class AuthService {
-  async authenticateAndCache(cookie) {
+  async authenticateAndCache(req) {
     try {
-      const { userData, expiresIn } = await authenticateToken(cookie);
+      const { userData, expiresIn } = await authenticateToken(req);
 
       return userData;
     } catch (error) {
