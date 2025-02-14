@@ -17,7 +17,7 @@ const baseUserData = {
 
 export async function authenticateToken(req) {
   // try {
-  //   const response = await axios.get(`${AUTH_ENDPOINT}/auth/check`, {
+  //   const response = await axios.get(`${AUTH_ENDPOINT}/check`, {
   //     headers: { Cookie: `${COOKIE_NAME}=${cookie}` },
   //     withCredentials: "true",
   //   });
@@ -36,7 +36,7 @@ export async function authenticateToken(req) {
         throw Error("Invalid Bearer token format");
       }
 
-      const response = await axios.get(`${AUTH_ENDPOINT}/auth/check`, {
+      const response = await axios.get(`${AUTH_ENDPOINT}/check`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -49,7 +49,7 @@ export async function authenticateToken(req) {
         throw Error("No Bearer token or session cookie found");
       }
 
-      const response = await axios.get(`${AUTH_ENDPOINT}/auth/check`, {
+      const response = await axios.get(`${AUTH_ENDPOINT}/check`, {
         headers: { Cookie: sessionCookie },
         withCredentials: true,
       });
