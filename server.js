@@ -24,7 +24,7 @@ export const socketService = new Server(httpServer, {
     origin: "*",
   },
 });
- 
+
 initializeSockets();
 
 app.use(cookieParser());
@@ -77,7 +77,7 @@ app.use((req, res, next) => {
   return next();
 });
 
-app.use(routes);
+app.use(process.env.ROUTES_PREFIX || "/", routes);
 
 httpServer.listen(PORT, () => {
   logger.info(`ChatDKG Server is running on http://localhost:${PORT}`);
