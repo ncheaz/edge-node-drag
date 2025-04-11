@@ -2,8 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { dirname } = require('path');
-const { fileURLToPath } = require('url');
 const routes = require('./routes/routes.js');
 const { createServer } = require('http');
 const logger = require('./utils/logger.js');
@@ -11,9 +9,6 @@ const cookieParser = require('cookie-parser');
 const { COOKIE_NAME } = require('./utils/constants.js');
 const { Server } = require('socket.io');
 const { initializeSockets } = require('./services/streamingService.js');
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const PORT = process.env.SERVER_PORT || 5000;
 const app = express();
@@ -25,7 +20,7 @@ const socketService = new Server(httpServer, {
     }
 });
 
-initializeSockets();
+initializeSockets(socketService);
 
 app.use(cookieParser());
 
@@ -82,5 +77,3 @@ app.use(process.env.ROUTES_PREFIX || '/', routes);
 httpServer.listen(PORT, () => {
     logger.info(`ChatDKG Server is running on http://localhost:${PORT}`);
 });
-
-module.exports = { socketService };

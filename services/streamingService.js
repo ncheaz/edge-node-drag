@@ -1,9 +1,11 @@
-const { socketService } = require('../server.js');
 const { CHUNKING_DONE_MESSAGE } = require('../utils/constants.js');
 const { setTimeout } = require('timers/promises');
 const logger = require('../utils/logger.js');
 
-function initializeSockets() {
+let socketService;
+
+function initializeSockets(newSocketService) {
+    socketService = newSocketService;
     socketService.on('connection', (socket) => {
         logger.info('Client connected', socket.id);
 
