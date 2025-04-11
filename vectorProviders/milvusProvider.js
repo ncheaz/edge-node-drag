@@ -1,7 +1,7 @@
-import { VectorProvider } from "./vectorProvider";
-import { MilvusClient } from "@zilliz/milvus2-sdk-node";
+const VectorProvider = require("./vectorProvider");
+const { MilvusClient } = require("@zilliz/milvus2-sdk-node");
 
-export class MilvusProvider extends VectorProvider {
+class MilvusProvider extends VectorProvider {
   constructor(config) {
     super(config);
     this.outputFields = config.output_fields || [];
@@ -10,7 +10,7 @@ export class MilvusProvider extends VectorProvider {
 }
 
   async vectorSearch(collection, query) {
-    return await client.search({
+    return await this.client.search({
         collection,
         vector: query,
         output_fields: this.outputFields,
@@ -18,3 +18,5 @@ export class MilvusProvider extends VectorProvider {
       });
   }
 }
+
+module.exports = MilvusProvider;

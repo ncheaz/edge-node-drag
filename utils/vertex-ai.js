@@ -1,5 +1,5 @@
-import { SpeechClient } from "@google-cloud/speech/build/src/v2/index.js";
-import pkg from "@google-cloud/speech/build/protos/protos.js";
+const { SpeechClient } = require("@google-cloud/speech/build/src/v2/index.js");
+const pkg = require("@google-cloud/speech/build/protos/protos.js");
 const { google } = pkg;
 
 const speechClientOptions = {
@@ -10,7 +10,7 @@ const speechClientOptions = {
 
 const speechClient = new SpeechClient(speechClientOptions);
 
-export async function getSpeechTranscript(audioFile = "./uploads/audio.wav") {
+async function getSpeechTranscript(audioFile = "./uploads/audio.wav") {
   try {
     const audio = {
       content: audioFile?.toString("base64"),
@@ -44,3 +44,7 @@ export async function getSpeechTranscript(audioFile = "./uploads/audio.wav") {
     );
   }
 }
+
+module.exports = {
+  getSpeechTranscript
+};

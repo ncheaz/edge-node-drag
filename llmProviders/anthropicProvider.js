@@ -1,7 +1,7 @@
-import { LLMProvider } from "./llmProvider.js";
-import Anthropic from "@anthropic-ai/sdk";
+const LLMProvider = require("./llmProvider.js");
+const Anthropic = require("@anthropic-ai/sdk");
 
-export class AnthropicProvider extends LLMProvider {
+class AnthropicProvider extends LLMProvider {
   constructor(config) {
     super(config);
     this.anthropic = new Anthropic({ apiKey: this.apiKey });
@@ -24,3 +24,5 @@ export class AnthropicProvider extends LLMProvider {
     return message.content[0].text;
   }
 }
+
+module.exports = AnthropicProvider;

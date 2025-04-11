@@ -1,4 +1,4 @@
-export class LLMProvider {
+class LLMProvider {
     constructor(config) {
         this.apiKey = config.apiKey;
         this.model = config.model;
@@ -10,3 +10,5 @@ export class LLMProvider {
         throw new Error('Method not implemented');
     };
 }
+
+module.exports = LLMProvider;

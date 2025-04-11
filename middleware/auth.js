@@ -1,6 +1,6 @@
-import authService from "../services/authService.js";
+const authService = require("../services/authService.js");
 
-export function authenticateToken(req, res, next) {
+function authenticateToken(req, res, next) {
   authService
     .authenticateAndCache(req)
     .then((userData) => {
@@ -15,3 +15,7 @@ export function authenticateToken(req, res, next) {
       return res.status(401).json({ error: "Unauthorized" });
     });
 }
+
+module.exports = {
+  authenticateToken
+};

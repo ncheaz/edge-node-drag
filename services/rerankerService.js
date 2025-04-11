@@ -1,7 +1,7 @@
-import { CohereClient } from "cohere-ai";
-import dotenv from "dotenv";
+const { CohereClient } = require("cohere-ai");
+const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
-import logger from "../utils/logger.js";
+const logger = require("../utils/logger.js");
 
 class RerankerService {
   constructor(apiKey) {
@@ -20,4 +20,4 @@ class RerankerService {
   }
 }
 
-export default RerankerService;
+module.exports = RerankerService;

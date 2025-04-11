@@ -1,6 +1,6 @@
-import logger from "./logger.js";
+const logger = require("./logger.js");
 
-export function getKnowledgeAssets(chunks, environment) {
+function getKnowledgeAssets(chunks, environment) {
   return chunks.map((chunk) => {
     return {
       assetName: chunk.name,
@@ -22,7 +22,8 @@ export function getKnowledgeAssets(chunks, environment) {
     };
   });
 }
-export function getKnowledgeAssetsGeneric(chunks, environment) {
+
+function getKnowledgeAssetsGeneric(chunks, environment) {
   return chunks.map((chunk) => {
     return {
       assetName: chunk.name,
@@ -45,7 +46,7 @@ export function getKnowledgeAssetsGeneric(chunks, environment) {
   });
 }
 
-export function getKnowledgeAssetsVector(chunks, environment) {
+function getKnowledgeAssetsVector(chunks, environment) {
   return chunks.map((chunk) => {
     return {
       // you should use vector DB metadata name field and include it in the vector service call
@@ -69,11 +70,11 @@ export function getKnowledgeAssetsVector(chunks, environment) {
   });
 }
 
-export function getToken(bearerToken) {
+function getToken(bearerToken) {
   return bearerToken.split(" ")[1];
 }
 
-export function getSparqlQuery(headline) {
+function getSparqlQuery(headline) {
   let query = `
   PREFIX schema: <http://schema.org/>
 SELECT ?ual ?name ?fileFormat ?headline ?abstract
@@ -94,3 +95,11 @@ WHERE {
 GROUP BY ?ual ?name ?fileFormat ?headline ?abstract`;
   return query;
 }
+
+module.exports = {
+  getKnowledgeAssets,
+  getKnowledgeAssetsGeneric,
+  getKnowledgeAssetsVector,
+  getToken,
+  getSparqlQuery
+};

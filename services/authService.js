@@ -1,5 +1,5 @@
-import CacheService from "./cacheService.js";
-import { authenticateToken } from "./userManagementService.js";
+const CacheService = require("./cacheService.js");
+const { authenticateToken } = require("./userManagementService.js");
 
 class AuthService {
   async authenticateAndCache(req) {
@@ -15,4 +15,5 @@ class AuthService {
 }
 
 const authService = new AuthService();
-export default authService;
+
+module.exports = authService;

@@ -1,6 +1,6 @@
-import { MilvusProvider } from "./milvusProvider";
+const MilvusProvider = require("./milvusProvider");
 
-export class VectorProviderFactory {
+class VectorProviderFactory {
   static createProvider(config) {
     switch (config.provider) {
       case 'milvus':
@@ -10,3 +10,5 @@ export class VectorProviderFactory {
     }
   }
 }
+
+module.exports = VectorProviderFactory;

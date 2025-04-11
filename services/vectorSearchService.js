@@ -1,7 +1,7 @@
-import { MilvusClient } from "@zilliz/milvus2-sdk-node";
-import { HuggingFaceInferenceEmbeddings } from "@langchain/community/embeddings/hf";
-import fetch from "node-fetch";
-import logger from "../utils/logger.js";
+const { MilvusClient } = require("@zilliz/milvus2-sdk-node");
+const { HuggingFaceInferenceEmbeddings } = require("@langchain/community/embeddings/hf");
+const fetch = require("node-fetch");
+const logger = require("../utils/logger.js");
 
 globalThis.fetch = fetch;
 
@@ -45,4 +45,4 @@ class VectorSearchService {
   }
 }
 
-export default VectorSearchService;
+module.exports = VectorSearchService;

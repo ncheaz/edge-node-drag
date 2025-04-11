@@ -1,7 +1,7 @@
-// import { queryExamples, schemas } from "../temp/examples.js";
-// import { ontologies } from "../temp/ontologies.js";
+// const { queryExamples, schemas } = require("../temp/examples.js");
+// const { ontologies } = require("../temp/ontologies.js");
 
-export function formulateStandaloneQuestionPrompt(question, chatHistory) {
+function formulateStandaloneQuestionPrompt(question, chatHistory) {
   return `Based on the provided question "${question}" and the chat history ${JSON.stringify(
     chatHistory
   )}, create a standalone question. 
@@ -10,7 +10,7 @@ export function formulateStandaloneQuestionPrompt(question, chatHistory) {
   The standalone question should be self-contained, reflecting the intent clearly without additional context needed. Respond with the standalone question only.`;
 }
 
-export function formulateOntologiesPrompt(question, ontologiess) {
+function formulateOntologiesPrompt(question, ontologiess) {
   return `Given the question "${question}", identify which ontologies from the provided list ${JSON.stringify(
     ontologiess
   )} directly relate to the question's themes and key terms. 
@@ -20,7 +20,7 @@ export function formulateOntologiesPrompt(question, ontologiess) {
   Ensure the response does not reformat or reinterpret the provided ontology descriptions.`;
 }
 
-export function formulateSparqlPrompt(question, standaloneQuestion) {
+function formulateSparqlPrompt(question, standaloneQuestion) {
   return `Based on the original question "${question}", the refined standalone question "${standaloneQuestion}", and the applicable ontologies "${JSON.stringify(
     ontologies.Brick
   )}", generate three distinct SPARQL queries. 
@@ -34,7 +34,7 @@ export function formulateSparqlPrompt(question, standaloneQuestion) {
   Example SPARQL queries: ${queryExamples}`;
 }
 
-export function formulateResponsePrompt(question, standaloneQuestion, context) {
+function formulateResponsePrompt(question, standaloneQuestion, context) {
   context = JSON.stringify(context);
   let prompt = `** Task Description **
   You are an intelligent assistant designed to provide engaging and informative responses based on relevant data provided to you. Given the question and the associated data provided in JSON format, analyze the data and construct a precise and accurate answer. 
@@ -61,7 +61,7 @@ export function formulateResponsePrompt(question, standaloneQuestion, context) {
   return prompt;
 }
 
-export function formulateContentTypePrompt(standaloneQuestion) {
+function formulateContentTypePrompt(standaloneQuestion) {
   return `
     Based on the following standalone question, determine the most appropriate content type (e.g., Dataset, Report, Article, Book, Movie, etc.) from the schema.org ontology:
     
@@ -82,7 +82,7 @@ export function formulateContentTypePrompt(standaloneQuestion) {
   `;
 }
 
-export function formulateDigitalDocumentTitlePrompt(standaloneQuestion) {
+function formulateDigitalDocumentTitlePrompt(standaloneQuestion) {
   return `
     Based on the following standalone question, determine what is the title of entity in focus
     
@@ -102,3 +102,12 @@ export function formulateDigitalDocumentTitlePrompt(standaloneQuestion) {
     Return only the title as where white space is replaced by | as provided in examples.
   `;
 }
+
+module.exports = {
+  formulateStandaloneQuestionPrompt,
+  formulateOntologiesPrompt,
+  formulateSparqlPrompt,
+  formulateResponsePrompt,
+  formulateContentTypePrompt,
+  formulateDigitalDocumentTitlePrompt
+};

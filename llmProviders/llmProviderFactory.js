@@ -1,7 +1,7 @@
-import { AnthropicProvider } from "./anthropicProvider.js";
-import { OpenAIProvider } from "./openaiProvider.js";
+const AnthropicProvider = require("./anthropicProvider.js");
+const OpenAIProvider = require("./openaiProvider.js");
 
-export class LLMProviderFactory {
+class LLMProviderFactory {
   static createProvider(config) {
     switch (config.provider) {
       case "openai":
@@ -13,3 +13,5 @@ export class LLMProviderFactory {
     }
   }
 }
+
+module.exports = LLMProviderFactory;

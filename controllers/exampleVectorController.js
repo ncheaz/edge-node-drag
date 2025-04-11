@@ -1,12 +1,13 @@
-import LLMService from "../services/llmService.js";
-import VectorSearchService from "../services/vectorSearchService.js";
-import { processQuestion } from "../services/nlpService.js";
-import logger from "../utils/logger.js";
-import { getKnowledgeAssetsVector } from "../utils/utils.js";
-import RerankerService from "../services/rerankerService.js";
-import authService from "../services/authService.js";
-import { VECTOR_DB_THRESHOLD } from "../utils/constants.js";
-export default {
+const LLMService = require("../services/llmService.js");
+const VectorSearchService = require("../services/vectorSearchService.js");
+const { processQuestion } = require("../services/nlpService.js");
+const logger = require("../utils/logger.js");
+const { getKnowledgeAssetsVector } = require("../utils/utils.js");
+const RerankerService = require("../services/rerankerService.js");
+const authService = require("../services/authService.js");
+const { VECTOR_DB_THRESHOLD } = require("../utils/constants.js");
+
+module.exports = {
   async ask(req, res, next) {
     try {
       const { question, chatHistory } = req.body;

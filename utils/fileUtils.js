@@ -1,6 +1,6 @@
-import { Parser } from 'json2csv';
+const { Parser } = require('json2csv');
 
-export const generateCSVFiles = (knowledgeAssets) => {
+const generateCSVFiles = (knowledgeAssets) => {
   try {
     if (knowledgeAssets.length === 0) {
       return null;
@@ -15,4 +15,8 @@ export const generateCSVFiles = (knowledgeAssets) => {
     console.error('Error generating CSV file:', err);
     throw err;
   }
+};
+
+module.exports = {
+  generateCSVFiles
 };

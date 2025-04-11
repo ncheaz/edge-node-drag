@@ -1,11 +1,12 @@
-import LLMService from "../services/llmService.js";
-import DKGService from "../services/nodeService.js";
-import { processQuestion } from "../services/nlpService.js";
-import logger from "../utils/logger.js";
-import { getKnowledgeAssetsGeneric } from "../utils/utils.js";
-import authService from "../services/authService.js";
-import { getSparqlQuery } from "../utils/utils.js";
-export default {
+const LLMService = require("../services/llmService.js");
+const DKGService = require("../services/nodeService.js");
+const { processQuestion } = require("../services/nlpService.js");
+const logger = require("../utils/logger.js");
+const { getKnowledgeAssetsGeneric } = require("../utils/utils.js");
+const authService = require("../services/authService.js");
+const { getSparqlQuery } = require("../utils/utils.js");
+
+module.exports = {
   async ask(req, res, next) {
     try {
       const { question, chatHistory } = req.body;

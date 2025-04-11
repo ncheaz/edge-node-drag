@@ -1,6 +1,6 @@
 // models/QuestionLog.js
-import { DataTypes } from "sequelize";
-import sequelize from "../database.js";
+const { DataTypes } = require("sequelize");
+const sequelize = require("../database.js");
 
 const QuestionLog = sequelize.define(
   "QuestionLog",
@@ -36,7 +36,7 @@ const QuestionLog = sequelize.define(
   }
 );
 
-export const createQuestionLog = async (data) => {
+const createQuestionLog = async (data) => {
   try {
     const log = await QuestionLog.create({
       question: data.question,
@@ -53,4 +53,7 @@ export const createQuestionLog = async (data) => {
   }
 };
 
-export default QuestionLog;
+module.exports = {
+  QuestionLog,
+  createQuestionLog
+};

@@ -1,8 +1,8 @@
-// import { ontologies } from "../temp/ontologies.js";
-import axios from "axios";
-import logger from "../utils/logger.js";
-import dotenv from "dotenv";
-import { COOKIE_NAME } from "../utils/constants.js";
+// const { ontologies } = require("../temp/ontologies.js");
+const axios = require("axios");
+const logger = require("../utils/logger.js");
+const dotenv = require("dotenv");
+const { COOKIE_NAME } = require("../utils/constants.js");
 dotenv.config("./env");
 
 const DRAG_USER_CONFIG_OPTION = "drag_endpoint";
@@ -15,7 +15,7 @@ const baseUserData = {
   apiKey: process.env.LLM_API_KEY,
 };
 
-export async function authenticateToken(req) {
+async function authenticateToken(req) {
   // try {
   //   const response = await axios.get(`${AUTH_ENDPOINT}/check`, {
   //     headers: { Cookie: `${COOKIE_NAME}=${cookie}` },
@@ -147,3 +147,7 @@ function prepareResponse(response, baseUserData) {
     },
   };
 }
+
+module.exports = {
+  authenticateToken
+};

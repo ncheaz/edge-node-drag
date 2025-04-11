@@ -1,4 +1,4 @@
-import NodeCache from "node-cache";
+const NodeCache = require("node-cache");
 
 const cache = new NodeCache({
   deleteOnExpire: true, // Automatically delete expired entries
@@ -53,4 +53,5 @@ class CacheService {
 }
 
 const cacheService = new CacheService();
-export default cacheService;
+
+module.exports = cacheService;

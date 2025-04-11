@@ -1,6 +1,6 @@
-import logger from "../utils/logger.js";
+const logger = require("../utils/logger.js");
 
-export async function processQuestionChatDKG(
+async function processQuestionChatDKG(
   llmService,
   question,
   chatHistory,
@@ -37,7 +37,7 @@ export async function processQuestionChatDKG(
   return { standaloneQuestion, sparqlQueries: JSON.parse(sparqlQueries) };
 }
 
-export async function processQuestion(llmService, question, chatHistory) {
+async function processQuestion(llmService, question, chatHistory) {
   // Create standalone question
   logger.info("Creating standalone question for " + question);
   const standaloneQuestion = await llmService.createStandaloneQuestion(
@@ -48,3 +48,8 @@ export async function processQuestion(llmService, question, chatHistory) {
 
   return { standaloneQuestion };
 }
+
+module.exports = {
+  processQuestionChatDKG,
+  processQuestion
+};

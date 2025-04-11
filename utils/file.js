@@ -1,6 +1,6 @@
-import multer from "multer";
+const multer = require("multer");
 
-export const createMulterStorageObjectForAudioTranscript = (
+const createMulterStorageObjectForAudioTranscript = (
   transcriptName = "audio.wav"
 ) => {
   const storage = multer.memoryStorage();
@@ -15,4 +15,8 @@ export const createMulterStorageObjectForAudioTranscript = (
     }),
     transcriptName,
   };
+};
+
+module.exports = {
+  createMulterStorageObjectForAudioTranscript
 };

@@ -1,12 +1,12 @@
-import { LLMProviderFactory } from "../llmProviders/llmProviderFactory.js";
-import {
+const { LLMProviderFactory } = require("../llmProviders/llmProviderFactory.js");
+const {
   formulateStandaloneQuestionPrompt,
   formulateOntologiesPrompt,
   formulateSparqlPrompt,
   formulateResponsePrompt,
   formulateContentTypePrompt,
-    formulateDigitalDocumentTitlePrompt
-} from "../utils/prompts.js";
+  formulateDigitalDocumentTitlePrompt
+} = require("../utils/prompts.js");
 
 class LLMService {
   constructor(userData) {
@@ -73,4 +73,4 @@ class LLMService {
   }
 }
 
-export default LLMService;
+module.exports = LLMService;

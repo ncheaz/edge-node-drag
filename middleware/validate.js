@@ -1,4 +1,4 @@
-export function validateRequestParams(req, res, next) {
+function validateRequestParams(req, res, next) {
   const { question, chatHistory } = req.body;
 
   // Validate 'question' parameter
@@ -36,3 +36,7 @@ export function validateRequestParams(req, res, next) {
 
   next();
 }
+
+module.exports = {
+  validateRequestParams
+};

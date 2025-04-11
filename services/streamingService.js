@@ -1,9 +1,9 @@
-import { socketService } from "../server.js";
-import { CHUNKING_DONE_MESSAGE } from "../utils/constants.js";
-import { setTimeout } from "timers/promises";
-import logger from "../utils/logger.js";
+const { socketService } = require("../server.js");
+const { CHUNKING_DONE_MESSAGE } = require("../utils/constants.js");
+const { setTimeout } = require("timers/promises");
+const logger = require("../utils/logger.js");
 
-export function initializeSockets() {
+function initializeSockets() {
   socketService.on("connection", (socket) => {
     logger.info("Client connected", socket.id);
 
@@ -19,17 +19,17 @@ export function initializeSockets() {
   });
 }
 
-export function emitChunkEvent(chunk, sessionId) {
+function emitChunkEvent(chunk, sessionId) {
   socketService.to(sessionId).emit("response-chunk", { chunk });
 }
 
-export function emitSKAEvent(sourceKnowledgeAssets, sessionId) {
+function emitSKAEvent(sourceKnowledgeAssets, sessionId) {
   socketService
     .to(sessionId)
     .emit("source-knowledge-assets", { sourceKnowledgeAssets });
 }
 
-export async function streamAnswer(answer, sourceKnowledgeAssets, sessionUuid) {
+async function streamAnswer(answer, sourceKnowledgeAssets, sessionUuid) {
   emitSKAEvent(sourceKnowledgeAssets, sessionUuid);
 
   for (var i = 0; i < answer.length; i += 7) {
@@ -40,4 +40,12 @@ export async function streamAnswer(answer, sourceKnowledgeAssets, sessionUuid) {
   emitChunkEvent(CHUNKING_DONE_MESSAGE, sessionUuid);
 }
 
-export async function streamLLMAnswer() {}
+async function streamLLMAnswer() {}
+
+module.exports = {
+  initializeSockets,
+  emitChunkEvent,
+  emitSKAEvent,
+  streamAnswer,
+  streamLLMAnswer
+};

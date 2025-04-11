@@ -1,5 +1,5 @@
-import DKG from "dkg.js";
-import logger from "../utils/logger.js";
+const DKG = require("dkg.js");
+const logger = require("../utils/logger.js");
 
 class DKGService {
   constructor(userData) {
@@ -77,4 +77,4 @@ class DKGService {
   }
 }
 
-export default DKGService;
+module.exports = DKGService;

@@ -1,7 +1,7 @@
-import { LLMProvider } from "./llmProvider.js";
-import OpenAI from "openai";
+const LLMProvider = require("./llmProvider.js");
+const OpenAI = require("openai");
 
-export class OpenAIProvider extends LLMProvider {
+class OpenAIProvider extends LLMProvider {
   constructor(config) {
     super(config);
     this.openai = new OpenAI({ apiKey: this.apiKey });
@@ -27,3 +27,5 @@ export class OpenAIProvider extends LLMProvider {
     return stream ? chatCompletion : chatCompletion.choices[0].message.content;
   }
 }
+
+module.exports = OpenAIProvider;

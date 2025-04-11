@@ -1,11 +1,11 @@
 {
   "name": "drag-api",
-  "type": "module",
   "version": "1.0.0",
   "description": "ChatDKG Product dRAG API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

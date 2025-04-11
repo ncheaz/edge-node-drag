@@ -1,5 +1,5 @@
-import { createLogger, format, transports } from "winston";
-import "winston-daily-rotate-file";
+const { createLogger, format, transports } = require("winston");
+require("winston-daily-rotate-file");
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
 
@@ -48,4 +48,4 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   );
 }
 
-export default logger;
+module.exports = logger;
