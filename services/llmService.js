@@ -1,4 +1,4 @@
-const { LLMProviderFactory } = require('../llmProviders/llmProviderFactory.js');
+const LLMProviderFactory = require('../llmProviders/llmProviderFactory.js');
 const {
     formulateStandaloneQuestionPrompt,
     formulateOntologiesPrompt,
