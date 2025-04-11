@@ -7,7 +7,7 @@ class VectorProvider {
 
     async vectorSearch(collection, query) {
         throw new Error('Method not implemented');
-    };
+    }
 }
 
 module.exports = VectorProvider;

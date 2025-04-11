@@ -2,18 +2,18 @@
 // const { ontologies } = require("../temp/ontologies.js");
 
 function formulateStandaloneQuestionPrompt(question, chatHistory) {
-  return `Based on the provided question "${question}" and the chat history ${JSON.stringify(
-    chatHistory
-  )}, create a standalone question. 
+    return `Based on the provided question "${question}" and the chat history ${JSON.stringify(
+        chatHistory
+    )}, create a standalone question. 
   If the original question is clear and directly applicable, use it as is. 
   Otherwise, rephrase it to ensure it contains all necessary information for an effective query and is optimized for natural language processing and vector search. 
   The standalone question should be self-contained, reflecting the intent clearly without additional context needed. Respond with the standalone question only.`;
 }
 
 function formulateOntologiesPrompt(question, ontologiess) {
-  return `Given the question "${question}", identify which ontologies from the provided list ${JSON.stringify(
-    ontologiess
-  )} directly relate to the question's themes and key terms. 
+    return `Given the question "${question}", identify which ontologies from the provided list ${JSON.stringify(
+        ontologiess
+    )} directly relate to the question's themes and key terms. 
   Use exact matches where possible to select the most applicable ontologies. 
   Return the matching ontologies in a plain JSON array format, preserving the original descriptions exactly as provided. 
   If no ontologies directly match the question's content, return an empty array []. 
@@ -21,9 +21,9 @@ function formulateOntologiesPrompt(question, ontologiess) {
 }
 
 function formulateSparqlPrompt(question, standaloneQuestion) {
-  return `Based on the original question "${question}", the refined standalone question "${standaloneQuestion}", and the applicable ontologies "${JSON.stringify(
-    ontologies.Brick
-  )}", generate three distinct SPARQL queries. 
+    return `Based on the original question "${question}", the refined standalone question "${standaloneQuestion}", and the applicable ontologies "${JSON.stringify(
+        ontologies.Brick
+    )}", generate three distinct SPARQL queries. 
   Each query should comprehensively cover the key aspects mentioned in the questions and must include the 'schema:name' property to extract relevant data effectively from RDF stores. 
   Ensure each query is clear and concise, maximizing information retrieval while maintaining structure and precision.
   Utilize the properties and relationships defined in the Brick ontology fully, focusing on capturing all necessary details. 
@@ -35,8 +35,8 @@ function formulateSparqlPrompt(question, standaloneQuestion) {
 }
 
 function formulateResponsePrompt(question, standaloneQuestion, context) {
-  context = JSON.stringify(context);
-  let prompt = `** Task Description **
+    context = JSON.stringify(context);
+    let prompt = `** Task Description **
   You are an intelligent assistant designed to provide engaging and informative responses based on relevant data provided to you. Given the question and the associated data provided in JSON format, analyze the data and construct a precise and accurate answer. 
 
   ** Instructions **
@@ -58,11 +58,11 @@ function formulateResponsePrompt(question, standaloneQuestion, context) {
   Standalone question: ${standaloneQuestion}
   The provided context: ${context}
     `;
-  return prompt;
+    return prompt;
 }
 
 function formulateContentTypePrompt(standaloneQuestion) {
-  return `
+    return `
     Based on the following standalone question, determine the most appropriate content type (e.g., Dataset, Report, Article, Book, Movie, etc.) from the schema.org ontology:
     
     Example input:
@@ -83,7 +83,7 @@ function formulateContentTypePrompt(standaloneQuestion) {
 }
 
 function formulateDigitalDocumentTitlePrompt(standaloneQuestion) {
-  return `
+    return `
     Based on the following standalone question, determine what is the title of entity in focus
     
     Example input:
@@ -104,10 +104,10 @@ function formulateDigitalDocumentTitlePrompt(standaloneQuestion) {
 }
 
 module.exports = {
-  formulateStandaloneQuestionPrompt,
-  formulateOntologiesPrompt,
-  formulateSparqlPrompt,
-  formulateResponsePrompt,
-  formulateContentTypePrompt,
-  formulateDigitalDocumentTitlePrompt
+    formulateStandaloneQuestionPrompt,
+    formulateOntologiesPrompt,
+    formulateSparqlPrompt,
+    formulateResponsePrompt,
+    formulateContentTypePrompt,
+    formulateDigitalDocumentTitlePrompt
 };

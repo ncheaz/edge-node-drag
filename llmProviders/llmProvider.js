@@ -8,7 +8,7 @@ class LLMProvider {
 
     async createChatCompletion(prompt, stream) {
         throw new Error('Method not implemented');
-    };
+    }
 }
 
 module.exports = LLMProvider;
