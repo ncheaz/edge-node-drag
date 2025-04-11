@@ -1,4 +1,4 @@
-export class VectorProvider {
+class VectorProvider {
     constructor(config) {
         this.apiKey = config.apiKey;
         this.address = config.address;
@@ -7,5 +7,7 @@ export class VectorProvider {
 
     async vectorSearch(collection, query) {
         throw new Error('Method not implemented');
-    };
+    }
 }
+
+module.exports = VectorProvider;

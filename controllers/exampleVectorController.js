@@ -1,80 +1,83 @@
-import LLMService from "../services/llmService.js";
-import VectorSearchService from "../services/vectorSearchService.js";
-import { processQuestion } from "../services/nlpService.js";
-import logger from "../utils/logger.js";
-import { getKnowledgeAssetsVector } from "../utils/utils.js";
-import RerankerService from "../services/rerankerService.js";
-import authService from "../services/authService.js";
-import { VECTOR_DB_THRESHOLD } from "../utils/constants.js";
-export default {
-  async ask(req, res, next) {
-    try {
-      const { question, chatHistory } = req.body;
+const LLMService = require('../services/llmService.js');
+const VectorSearchService = require('../services/vectorSearchService.js');
+const { processQuestion } = require('../services/nlpService.js');
+const logger = require('../utils/logger.js');
+const { getKnowledgeAssetsVector } = require('../utils/utils.js');
+const RerankerService = require('../services/rerankerService.js');
+const authService = require('../services/authService.js');
+const { VECTOR_DB_THRESHOLD } = require('../utils/constants.js');
 
-      const userData = await authService.authenticateAndCache(req);
+module.exports = {
+    async ask(req, res, next) {
+        try {
+            const { question, chatHistory } = req.body;
 
-      const llmService = new LLMService(userData);
+            const userData = await authService.authenticateAndCache(req);
 
-      const vectorService = new VectorSearchService({
-        ...userData,
-        collectionName: userData.vectorCollection,
-      });
+            const llmService = new LLMService(userData);
 
-      const { standaloneQuestion } = await processQuestion(
-        llmService,
-        question,
-        chatHistory
-      );
+            const vectorService = new VectorSearchService({
+                ...userData,
+                collectionName: userData.vectorCollection
+            });
 
-      // Add or edit vector DB fields if you want (langchain_text, UAL)
-      let vectorResponse = await vectorService.search(standaloneQuestion, [
-        "langchain_text",
-        "ual",
-      ]);
+            const { standaloneQuestion } = await processQuestion(
+                llmService,
+                question,
+                chatHistory
+            );
 
-      let extractedChunks = vectorResponse.results.filter(
-        (res) => res.score >= VECTOR_DB_THRESHOLD
-      );
+            // Add or edit vector DB fields if you want (langchain_text, UAL)
+            let vectorResponse = await vectorService.search(
+                standaloneQuestion,
+                ['langchain_text', 'ual']
+            );
 
-      logger.info(`Vector search retrieved ${extractedChunks.length} results`);
+            let extractedChunks = vectorResponse.results.filter(
+                (res) => res.score >= VECTOR_DB_THRESHOLD
+            );
 
-      try {
-        logger.info("Reranking chunks...");
+            logger.info(
+                `Vector search retrieved ${extractedChunks.length} results`
+            );
 
-        const rerankerService = new RerankerService(userData.cohereKey);
-        const rerankedIndices = await rerankerService.rerankAnswers(
-          extractedChunks.map((e) => e.langchain_text),
-          standaloneQuestion,
-          5
-        );
+            try {
+                logger.info('Reranking chunks...');
 
-        extractedChunks = rerankedIndices.map(
-          (reranked) => extractedChunks[reranked.index]
-        );
-        logger.info(
-          `Got top ${extractedChunks.length} results from Reranker. `
-        );
-      } catch (e) {
-        logger.error(`Reranker error: ${e.message}`);
-      }
+                const rerankerService = new RerankerService(userData.cohereKey);
+                const rerankedIndices = await rerankerService.rerankAnswers(
+                    extractedChunks.map((e) => e.langchain_text),
+                    standaloneQuestion,
+                    5
+                );
 
-      const knowledgeAssets = getKnowledgeAssetsVector(
-        extractedChunks,
-        userData.environment
-      );
+                extractedChunks = rerankedIndices.map(
+                    (reranked) => extractedChunks[reranked.index]
+                );
+                logger.info(
+                    `Got top ${extractedChunks.length} results from Reranker. `
+                );
+            } catch (e) {
+                logger.error(`Reranker error: ${e.message}`);
+            }
 
-      const answer = await llmService.generateResponse(
-        question,
-        standaloneQuestion,
-        extractedChunks
-      );
+            const knowledgeAssets = getKnowledgeAssetsVector(
+                extractedChunks,
+                userData.environment
+            );
 
-      return res.status(200).send({
-        answer,
-        knowledgeAssets,
-      });
-    } catch (e) {
-      logger.error("Error in ask: " + e.stack);
+            const answer = await llmService.generateResponse(
+                question,
+                standaloneQuestion,
+                extractedChunks
+            );
+
+            return res.status(200).send({
+                answer,
+                knowledgeAssets
+            });
+        } catch (e) {
+            logger.error('Error in ask: ' + e.stack);
+        }
     }
-  },
 };

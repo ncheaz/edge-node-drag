@@ -1,60 +1,59 @@
-import LLMService from "../services/llmService.js";
-import DKGService from "../services/nodeService.js";
-import { processQuestion } from "../services/nlpService.js";
-import logger from "../utils/logger.js";
-import { getKnowledgeAssetsGeneric } from "../utils/utils.js";
-import authService from "../services/authService.js";
-import { getSparqlQuery } from "../utils/utils.js";
-export default {
-  async ask(req, res, next) {
-    try {
-      const { question, chatHistory } = req.body;
+const LLMService = require('../services/llmService.js');
+const DKGService = require('../services/nodeService.js');
+const { processQuestion } = require('../services/nlpService.js');
+const logger = require('../utils/logger.js');
+const { getKnowledgeAssetsGeneric } = require('../utils/utils.js');
+const authService = require('../services/authService.js');
+const { getSparqlQuery } = require('../utils/utils.js');
 
-      const userData = await authService.authenticateAndCache(req);
+module.exports = {
+    async ask(req, res, next) {
+        try {
+            const { question, chatHistory } = req.body;
 
-      const llmService = new LLMService(userData);
+            const userData = await authService.authenticateAndCache(req);
 
-      const dkgService = new DKGService(userData);
+            const llmService = new LLMService(userData);
 
-      const { standaloneQuestion } = await processQuestion(
-        llmService,
-        question,
-        chatHistory
-      );
+            const dkgService = new DKGService(userData);
 
-      const headline = await llmService.getDigitalDocumentTitle(
-        standaloneQuestion
-      );
+            const { standaloneQuestion } = await processQuestion(
+                llmService,
+                question,
+                chatHistory
+            );
 
-      const sparqlQuery = getSparqlQuery(headline);
+            const headline =
+                await llmService.getDigitalDocumentTitle(standaloneQuestion);
 
-      const queryResults = await dkgService.query(sparqlQuery, userData);
+            const sparqlQuery = getSparqlQuery(headline);
 
-      let result = queryResults[0];
-      if (result.length === 0) {
-        return res.status(200).send({
-          answer:
-            "No information was found related to the question you provided.",
-          knowledgeAssets: [],
-        });
-      }
-      const knowledgeAssets = getKnowledgeAssetsGeneric(
-        result,
-        userData.environment
-      );
+            const queryResults = await dkgService.query(sparqlQuery, userData);
 
-      const answer = await llmService.generateResponse(
-        question,
-        standaloneQuestion,
-        result
-      );
+            let result = queryResults[0];
+            if (result.length === 0) {
+                return res.status(200).send({
+                    answer: 'No information was found related to the question you provided.',
+                    knowledgeAssets: []
+                });
+            }
+            const knowledgeAssets = getKnowledgeAssetsGeneric(
+                result,
+                userData.environment
+            );
 
-      return res.status(200).send({
-        answer,
-        knowledgeAssets,
-      });
-    } catch (e) {
-      logger.error("Error in ask: " + e.stack);
+            const answer = await llmService.generateResponse(
+                question,
+                standaloneQuestion,
+                result
+            );
+
+            return res.status(200).send({
+                answer,
+                knowledgeAssets
+            });
+        } catch (e) {
+            logger.error('Error in ask: ' + e.stack);
+        }
     }
-  },
 };

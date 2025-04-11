@@ -1,44 +1,45 @@
 {
-  "name": "drag-api",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "ChatDKG Product dRAG API",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/OriginTrail/drag-api.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/OriginTrail/drag-api/issues"
-  },
-  "homepage": "https://github.com/OriginTrail/drag-api#readme",
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.27.1",
-    "@google-cloud/speech": "^6.0.1",
-    "@huggingface/inference": "^2.8.0",
-    "@langchain/community": "^0.2.27",
-    "@zilliz/milvus2-sdk-node": "^2.4.3",
-    "axios": "^1.7.4",
-    "cohere-ai": "^7.12.0",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dkg.js": "^8.0.3",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "json2csv": "^6.0.0-alpha.2",
-    "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.11.0",
-    "node-cache": "^5.1.2",
-    "openai": "^4.52.1",
-    "sequelize": "^6.37.3",
-    "sequelize-cli": "^6.6.2",
-    "socket.io": "^4.8.0",
-    "winston": "^3.13.0",
-    "winston-daily-rotate-file": "^5.0.0"
-  }
+    "name": "drag-api",
+    "version": "1.0.0",
+    "description": "ChatDKG Product dRAG API",
+    "type": "commonjs",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/OriginTrail/drag-api.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/OriginTrail/drag-api/issues"
+    },
+    "homepage": "https://github.com/OriginTrail/drag-api#readme",
+    "dependencies": {
+        "@anthropic-ai/sdk": "^0.27.1",
+        "@google-cloud/speech": "^6.0.1",
+        "@huggingface/inference": "^2.8.0",
+        "@langchain/community": "^0.2.27",
+        "@zilliz/milvus2-sdk-node": "^2.4.3",
+        "axios": "^1.7.4",
+        "cohere-ai": "^7.12.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dkg.js": "^8.0.3",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "json2csv": "^6.0.0-alpha.2",
+        "multer": "^1.4.5-lts.1",
+        "mysql2": "^3.11.0",
+        "node-cache": "^5.1.2",
+        "openai": "^4.52.1",
+        "sequelize": "^6.37.3",
+        "sequelize-cli": "^6.6.2",
+        "socket.io": "^4.8.0",
+        "winston": "^3.13.0",
+        "winston-daily-rotate-file": "^5.0.0"
+    }
 }

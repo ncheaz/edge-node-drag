@@ -1,24 +1,22 @@
-import express from "express";
-
-import { validateRequestParams } from "../middleware/validate.js";
-
-import exampleController from "../controllers/exampleSparqlController.js";
-import exampleVectorController from "../controllers/exampleVectorController.js";
+const express = require('express');
+const { validateRequestParams } = require('../middleware/validate.js');
+const exampleController = require('../controllers/exampleSparqlController.js');
+const exampleVectorController = require('../controllers/exampleVectorController.js');
 
 const router = express.Router();
 
 //if you create a new controller add it here
 
 router.post(
-  "/server/api/example",
-  validateRequestParams,
-  exampleController.ask
+    '/server/api/example',
+    validateRequestParams,
+    exampleController.ask
 );
 
 router.post(
-  "/server/api/example-vector",
-  validateRequestParams,
-  exampleVectorController.ask
+    '/server/api/example-vector',
+    validateRequestParams,
+    exampleVectorController.ask
 );
 
-export default router;
+module.exports = router;
