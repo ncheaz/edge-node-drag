@@ -2,7 +2,7 @@ const LLMProvider = require('./llmProvider.js');
 const axios = require('axios');
 const { PassThrough, Transform } = require('stream');
 
-export class OllamaProvider extends LLMProvider {
+class OllamaProvider extends LLMProvider {
     constructor(config) {
         super(config);
     }
@@ -38,3 +38,5 @@ export class OllamaProvider extends LLMProvider {
         return responseStream;
     }
 }
+
+module.exports = OllamaProvider;
