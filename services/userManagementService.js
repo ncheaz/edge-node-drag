@@ -11,7 +11,8 @@ const AUTH_ENDPOINT = process.env.AUTH_ENDPOINT;
 // Here you can change the LLM you are using, you can eather put anthropic, openai or ollama models. Just use the different key in the env file
 const baseUserData = {
     provider: 'openai',
-    model: 'gpt-4o-mini',
+    //model: 'gpt-4o-mini',
+    model: 'meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8',
     apiKey: process.env.LLM_API_KEY
 };
 

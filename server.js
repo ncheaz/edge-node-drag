@@ -67,7 +67,14 @@ const corsOptions = {
     credentials: true // Allow credentials (cookies, authorization headers, etc.)
 };
 
-app.use(cors(corsOptions));
+const corsOptionsAll = {
+    origin: true, // Allow all origins
+    credentials: true // Allow credentials (cookies, authorization headers, etc.)
+};
+
+// app.use(cors(corsOptions));
+app.use(cors(corsOptionsAll));
+
 app.use(requestMiddleware);
 app.use(express.json());
 app.use((req, res, next) => {
